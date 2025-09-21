@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
-          cache-dependency-path: "./SIH-INGRES/package-lock.json"
+          cache-dependency-path: "SIH-INGRES/package-lock.json"
 
       - name: Install dependencies
         run: |
@@ -37,4 +37,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./SIH-INGRES/dist
-          cname: # Optional: add your custom domain here

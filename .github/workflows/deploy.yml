@@ -14,17 +14,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: List files
+        run: |
+          ls -la
+          ls -la SIH-INGRES/
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: "npm"
-          cache-dependency-path: "SIH-INGRES/package-lock.json"
 
       - name: Install dependencies
         run: |
           cd SIH-INGRES
-          npm ci
+          npm install
 
       - name: Build
         run: |

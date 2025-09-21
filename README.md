@@ -1,73 +1,99 @@
-# Welcome to your Lovable project
+# SIH-INGRES
 
-## Project info
+**INDIA-Groundwater Resource Estimation System (IN-GRES)**
 
-**URL**: https://lovable.dev/projects/70daa21b-c1b2-4d6a-b916-b8831ad67644
+A web-based application for groundwater resource assessment and management in India, developed for the Smart India Hackathon 2025.
 
-## How can I edit this code?
+## Project Overview
 
-There are several ways of editing your application.
+IN-GRES is a comprehensive platform that provides:
+- Dynamic Ground Water Resources assessment for India
+- State/UT, District, and Assessment Units-wise data
+- Annual Ground Water Recharge and Extraction information
+- Stage of Extraction and Categorization of assessment units
+- Interactive maps and visualization dashboards
+- AI-powered chatbot for groundwater data queries
 
-**Use Lovable**
+## Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/70daa21b-c1b2-4d6a-b916-b8831ad67644) and start prompting.
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **UI Library**: shadcn/ui components (Radix UI primitives)
+- **Styling**: Tailwind CSS
+- **State Management**: React Query (TanStack Query)
+- **Forms**: React Hook Form with Zod validation
+- **Routing**: React Router DOM
+- **Charts**: Recharts
+- **Icons**: Lucide React
 
-Changes made via Lovable will be committed automatically to this repo.
+## Features
 
-**Use your preferred IDE**
+- 🌊 Groundwater resource assessment dashboard
+- 📊 Interactive data visualization
+- 🤖 AI-powered chatbot for data queries
+- 🗺️ GIS-based thematic maps
+- 📱 Responsive design for all devices
+- 🔍 Quick access to major Indian cities' data
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+- Node.js (v16 or higher)
+- npm or yarn
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Clone the repository:
+```bash
+git clone https://github.com/nishchaydev/SIH-INGRES.git
+cd SIH-INGRES
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install dependencies:
+```bash
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   └── ChatBot.tsx     # AI chatbot component
+├── pages/              # Page components
+│   ├── Index.tsx       # Main landing page
+│   └── NotFound.tsx    # 404 page
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── assets/             # Static assets
+```
 
-This project is built with:
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project is developed for Smart India Hackathon 2025 by Team Syntax Error.
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/70daa21b-c1b2-4d6a-b916-b8831ad67644) and click on Share -> Publish.
+This project is developed for educational and research purposes as part of the Smart India Hackathon 2025.
 
-## Can I connect a custom domain to my Lovable project?
+## Acknowledgments
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Central Ground Water Board (CGWB)
+- Indian Institute of Technology-Hyderabad (IIT-H)
+- Smart India Hackathon 2025

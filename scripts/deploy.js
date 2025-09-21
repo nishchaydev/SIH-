@@ -55,7 +55,7 @@ try {
   console.log('🎉 DEPLOYMENT COMPLETE!');
   console.log('========================');
   console.log('📱 Your site will be live at:');
-  console.log('🔗 https://nishchaydev.github.io/SIH-INGRES/');
+  console.log('🔗 https://nishchaydev.github.io/SIH-/');
   console.log('\n⏱️  GitHub Actions will deploy your changes in 2-3 minutes.');
   console.log('🔄 You can check the deployment status in the Actions tab of your repository.\n');
 

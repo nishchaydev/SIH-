@@ -51,7 +51,7 @@ echo.
 echo 🎉 DEPLOYMENT COMPLETE!
 echo ========================
 echo 📱 Your site will be live at:
-echo 🔗 https://nishchaydev.github.io/SIH-INGRES/
+echo 🔗 https://nishchaydev.github.io/SIH-/
 echo.
 echo ⏱️  GitHub Actions will deploy your changes in 2-3 minutes.
 echo 🔄 You can check the deployment status in the Actions tab of your repository.

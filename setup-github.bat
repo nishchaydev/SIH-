@@ -47,6 +47,6 @@ echo 🚀 To deploy your site:
 echo    npm run master
 echo.
 echo 🌐 Your site will be live at:
-echo    https://nishchaydev.github.io/SIH-INGRES/
+echo    https://nishchaydev.github.io/SIH-/
 echo.
 pause

@@ -67,7 +67,7 @@ npm run dev
 ### Automatic Deployment (Recommended)
 1. Push your code to the `main` branch
 2. GitHub Actions will automatically build and deploy to GitHub Pages
-3. Your site will be available at: `https://nishchaydev.github.io/SIH-INGRES/`
+3. Your site will be available at: `https://nishchaydev.github.io/SIH-/`
 
 ### Manual Deployment
 1. **Build the project**

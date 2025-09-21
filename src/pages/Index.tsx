@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "react-router-dom";
 import backgroundImage from "@/assets/background-landscape.jpg";
 import ChatBot from "@/components/ChatBot";
 import AssessmentUnitSelector from "@/components/AssessmentUnitSelector";
+import GECAssessmentLocations from "@/components/GECAssessmentLocations";
 
 const Index = () => {
   return (
@@ -12,10 +14,10 @@ const Index = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Water-themed overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-cyan-800/30 to-teal-900/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-cyan-800/50 to-teal-900/40"></div>
       
       {/* Water ripple effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
       {/* Header Section */}
       <header className="flex items-center justify-between p-4 md:p-6 relative z-10">
         {/* Logo */}
@@ -38,96 +40,91 @@ const Index = () => {
       </header>
 
       {/* Main Title */}
-      <div className="text-center mt-2 md:mt-8 mb-4 md:mb-12 px-3 md:px-4">
-        <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-normal text-white drop-shadow-lg leading-tight">
-          "INDIA-Groundwater Resource Estimation System (IN-GRES)"
+      <div className="text-center mt-4 md:mt-12 mb-6 md:mb-16 px-4 md:px-6">
+        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-2xl leading-tight">
+          INDIA-Groundwater Resource Estimation System
         </h1>
+        <p className="text-sm md:text-lg text-white drop-shadow-lg mt-2 md:mt-4 font-medium">
+          AI-Powered Virtual Assistant for Groundwater Data Analysis
+        </p>
       </div>
 
       {/* Main Content Card */}
-      <div className="max-w-6xl mx-auto px-2 md:px-6 pb-16 md:pb-20">
-        <Card className="bg-content-overlay border-content-border backdrop-blur-sm">
-          <div className="p-3 md:p-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pb-20 md:pb-24">
+        <Card className="bg-white/95 border-content-border backdrop-blur-sm shadow-2xl">
+          <div className="p-4 md:p-10">
             {/* GEC Overview Header */}
-            <div className="text-center mb-4 md:mb-8">
-              <h2 className="text-base md:text-2xl font-semibold text-foreground border-b-2 border-content-border pb-2 inline-block">
-                GEC-Overview
+            <div className="text-center mb-6 md:mb-10">
+              <h2 className="text-xl md:text-3xl font-bold text-gray-800 border-b-2 border-blue-300 pb-3 inline-block">
+                Groundwater Resource Assessment
               </h2>
             </div>
 
             {/* Tabs for different sections */}
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 bg-blue-50/50 border border-cyan-200/50">
-                <TabsTrigger value="overview" className="text-xs md:text-sm">Overview</TabsTrigger>
-                <TabsTrigger value="assessment" className="text-xs md:text-sm">Assessment Units</TabsTrigger>
-                <TabsTrigger value="data" className="text-xs md:text-sm">Data Explorer</TabsTrigger>
-                <TabsTrigger value="reports" className="text-xs md:text-sm">Reports</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-blue-50/50 border border-cyan-200/50 h-auto">
+                <TabsTrigger value="overview" className="text-sm md:text-base py-3">Overview</TabsTrigger>
+                <TabsTrigger value="assessment" className="text-sm md:text-base py-3">Assessment Units</TabsTrigger>
+                <TabsTrigger value="data" className="text-sm md:text-base py-3">Data Explorer</TabsTrigger>
+                <TabsTrigger value="reports" className="text-sm md:text-base py-3">Reports</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="overview" className="mt-6">
+              <TabsContent value="overview" className="mt-8">
+                {/* Key Information Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border border-cyan-200/50">
+                    <h3 className="text-lg font-semibold text-blue-900 mb-3">What is GEC?</h3>
+                    <p className="text-sm text-blue-800 leading-relaxed">
+                      Ground Water Resource Estimation Committee (GEC-2015) methodology for assessment of dynamic groundwater resources across India.
+                    </p>
+                  </Card>
+                  
+                  <Card className="p-6 bg-gradient-to-br from-green-50 to-teal-50 border border-teal-200/50">
+                    <h3 className="text-lg font-semibold text-green-900 mb-3">Assessment Categories</h3>
+                    <div className="space-y-2 text-sm text-green-800">
+                      <div className="flex justify-between"><span>Safe:</span><span>&lt; 70%</span></div>
+                      <div className="flex justify-between"><span>Semi-Critical:</span><span>70-90%</span></div>
+                      <div className="flex justify-between"><span>Critical:</span><span>90-100%</span></div>
+                      <div className="flex justify-between"><span>Over-exploited:</span><span>&gt; 100%</span></div>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200/50">
+                    <h3 className="text-lg font-semibold text-purple-900 mb-3">AI Assistant</h3>
+                    <p className="text-sm text-purple-800 leading-relaxed">
+                      Ask questions about groundwater data in multiple languages and get instant insights with interactive charts.
+                    </p>
+                  </Card>
+                </div>
 
-            {/* What is GEC Section */}
-            <div className="mb-4 md:mb-8">
-              <h3 className="text-base md:text-xl font-semibold text-foreground mb-2 md:mb-4 border-b border-content-border pb-1 md:pb-2">
-                What is GEC?
-              </h3>
-              
-              <div className="space-y-2 md:space-y-4 text-foreground leading-relaxed text-xs md:text-base">
-                <p>
-                  Assessment of 'Dynamic Ground Water Resources of India' is carried out at periodical intervals jointly by the Central Ground Water Board (CGWB) and State/UT Ground Water Departments under the guidance of State Level Committee at State levels and under the overall supervision of Central Level Expert Group. Last assessment was carried out in 2017 and re-assessment of Dynamic Ground Water Resources of India, 2020 has been carried out based on the norms and guidelines of Ground Water Resource Estimation Committee (GEC-2015) methodology.
-                </p>
-                
-                <p>
-                  The assessment involves computation of Annual Ground Water Recharge and Annual Extractable Ground Water Resources, Total Annual Ground Water Extraction (utilization) and the percentage of utilization with respect to Annual Extractable Ground Water Resources (Stage of Extraction). The assessment units (blocks/taluks/mandals/tehsil/firkas etc.) are categorized based on the Stage of Extraction (SoE) i.e 'Safe' if SoE &lt; 70 %; 'Semi-critical if SoE&gt; 70 and &lt;= 90 %; 'Critical' if SoE&gt;90 and &lt;=100 % and 'Over-exploited' if SoE&gt; 100 %.
-                </p>
-                
-                <p>
-                  <strong>"INDIA-Groundwater Resource Estimation System (IN-GRES)"</strong> is a software/web based application developed by Central Ground Water Board (CGWB) in collaboration with Indian Institute of Technology-Hyderabad (IIT-H) for assessment of ground water resources.
-                </p>
+                {/* Quick Stats */}
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6 border border-cyan-200/50">
+                  <h3 className="text-xl font-semibold text-foreground mb-4 text-center">Quick Statistics</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">4,000+</div>
+                      <div className="text-sm text-gray-600">Assessment Units</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">1,200</div>
+                      <div className="text-sm text-gray-600">Safe Zones</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-yellow-600">1,500</div>
+                      <div className="text-sm text-gray-600">Semi-Critical</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-red-600">1,300</div>
+                      <div className="text-sm text-gray-600">Critical/Over-exploited</div>
+                    </div>
               </div>
-            </div>
-
-            {/* Objectives Section */}
-            <div className="mb-4 md:mb-8">
-              <h3 className="text-base md:text-xl font-semibold text-foreground mb-2 md:mb-4 border-b border-content-border pb-1 md:pb-2">
-                Objectives
-              </h3>
-              
-              <ul className="space-y-1 md:space-y-2 text-foreground leading-relaxed text-xs md:text-base">
-                <li>• To provide common and standardized platform for Ground Water Resource Assessment for the entire country based on Ground Water Resource Estimation Committee-2015 (GEC-2015) methodology.</li>
-                <li>• Pan-India operationalization (Joint assessment by CGWB and State Ground Water/ Nodal Departments).</li>
-                <li>• Visibility dashboards allowing user to view the data/map and download reports.</li>
-              </ul>
-            </div>
-
-            {/* IN-GRES Information Section */}
-            <div className="mb-4 md:mb-8">
-              <h3 className="text-base md:text-xl font-semibold text-foreground mb-2 md:mb-4 border-b border-content-border pb-1 md:pb-2">
-                IN-GRES provides the following information/data/map to the users:
-              </h3>
-              
-              <ul className="space-y-1 md:space-y-2 text-foreground leading-relaxed text-xs md:text-base">
-                <li>• Dynamic Ground Water Resources of India, 2020 (India, State/UT, District, Assessment Units-wise) Annual Ground Water Recharge, Annual Extractable Ground Water Resources, Ground Water Extraction, Stage of Extraction and Categorization of the assessment units etc.</li>
-                <li>• Thematic map (GIS) based on the Annual Ground Water Recharge, Annual Ground Water Extraction and categorization of assessment units etc.</li>
-              </ul>
-            </div>
-
-            {/* Remark Section */}
-            <div className="mb-4 md:mb-8">
-              <h3 className="text-base md:text-xl font-semibold text-foreground mb-2 md:mb-4 border-b border-content-border pb-1 md:pb-2">
-                Remark
-              </h3>
-              
-              <p className="text-foreground leading-relaxed text-xs md:text-base">
-                1. In the MIS datasheets, all the parameters (Annual Ground Water Recharge, Annual Extractable Ground Water Resources, and Ground Water Extraction etc.) are given under three components i.e Command (C), Non-Command (NC) and Poor Water Quality (PQ). However the dynamic ground water resources comprises of sum total of fresh water resources under Command(C)and Non-command(NC) components and excludes the resources under poor water quality (saline). So for all practical purposes fresh water resources are taken into consideration including categorization of assessment units.
-              </p>
             </div>
               </TabsContent>
               
               <TabsContent value="assessment" className="mt-6">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">Assessment Unit Navigation</h3>
-                  <AssessmentUnitSelector />
+                  <h3 className="text-lg font-semibold text-foreground mb-4">GEC Assessment Locations</h3>
+                  <GECAssessmentLocations />
                 </div>
               </TabsContent>
               
@@ -154,7 +151,7 @@ const Index = () => {
                           <div className="font-bold text-red-600">1,300</div>
                           <div className="text-xs text-gray-600">Critical/Over-exploited</div>
                         </div>
-                      </div>
+            </div>
                     </Card>
                     
                     <Card className="p-4 bg-gradient-to-br from-green-50 to-teal-50 border border-teal-200/50">
@@ -167,11 +164,11 @@ const Index = () => {
                         <div className="flex justify-between items-center p-2 bg-white/50 rounded">
                           <span className="text-green-700">GEC-2015 Methodology</span>
                           <span className="text-xs text-gray-500">Active</span>
-                        </div>
+            </div>
                         <div className="flex justify-between items-center p-2 bg-white/50 rounded">
                           <span className="text-green-700">AI Assistant</span>
                           <span className="text-xs text-gray-500">Beta</span>
-                        </div>
+            </div>
                       </div>
                     </Card>
                   </div>
@@ -209,7 +206,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="fixed bottom-0 left-0 right-0 bg-black/80 text-white px-2 md:px-6 py-2 md:py-3">
-        <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto space-y-1 md:space-y-0">
+        <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto space-y-1 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-8">
             <span className="text-xs md:text-sm">Visitors: - - - -</span>
             
@@ -223,8 +220,13 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-1 md:space-x-2">
-            <span className="text-xs md:text-sm text-center">Prototype by Team Syntax Error – Smart India Hackathon 2025</span>
+          <div className="flex items-center space-x-1 md:space-x-4">
+            <Link 
+              to="/team" 
+              className="text-xs md:text-sm text-center hover:text-blue-300 transition-colors duration-200 underline"
+            >
+              Prototype by Team Syntax Error – Smart India Hackathon 2025
+            </Link>
           </div>
         </div>
       </footer>

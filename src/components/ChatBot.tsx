@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { MessageCircle, Send, Mic, Minimize2, Maximize2, X, MapPin, Zap, BarChart3, TrendingUp, Globe, Languages, Maximize, Minimize } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import AdvancedCharts from './AdvancedCharts';
+import { groundwaterData, getDataById, GroundwaterData } from '@/data/groundwaterData';
 
 interface Message {
   id: number;
@@ -24,6 +26,7 @@ interface Language {
 }
 
 const ChatBot = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -35,6 +38,8 @@ const ChatBot = () => {
   const [favoriteQueries, setFavoriteQueries] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Remove auto-popup - let users choose when to open chatbot
 
   const languages: Language[] = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -49,26 +54,26 @@ const ChatBot = () => {
   const getLocalizedText = (key: string) => {
     const translations: { [lang: string]: { [key: string]: string } } = {
       en: {
-        welcome: "🌊 Welcome to INGRES AI Assistant! I can provide groundwater data for major Indian cities. Click on a city below or ask me anything about water resources.",
-        cityNotFound: "🚫 Sorry, the city you requested is not available in our current demo data. We are continuously updating our database and will add more cities soon. Please try with one of the available cities: Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Ranchi, Lucknow, Bhopal, or Indore.",
-        mumbaiData: "📊 Groundwater assessment for Mumbai:",
-        delhiData: "📊 Current status for Delhi region:",
-        bangaloreData: "📊 Groundwater data for Bangalore:",
-        hyderabadData: "📊 Hyderabad groundwater assessment:",
-        chennaiData: "📊 Chennai water resource status:",
-        kolkataData: "📊 Kolkata groundwater analysis:",
-        indoreData: "📊 Indore groundwater assessment:"
+        welcome: "Welcome to INGRES AI Assistant! I can provide groundwater data for major Indian cities. Click on a city below or ask me anything about water resources.",
+        cityNotFound: "Sorry, the city you requested is not available in our current demo data. We are continuously updating our database and will add more cities soon. Please try with one of the available cities: Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Ranchi, Lucknow, Bhopal, or Indore.",
+        mumbaiData: "Groundwater assessment for Mumbai:",
+        delhiData: "Current status for Delhi region:",
+        bangaloreData: "Groundwater data for Bangalore:",
+        hyderabadData: "Hyderabad groundwater assessment:",
+        chennaiData: "Chennai water resource status:",
+        kolkataData: "Kolkata groundwater analysis:",
+        indoreData: "Indore groundwater assessment:"
       },
       hi: {
-        welcome: "🌊 INGRES AI सहायक में आपका स्वागत है! मैं प्रमुख भारतीय शहरों के भूजल डेटा प्रदान कर सकता हूं। नीचे किसी शहर पर क्लिक करें या जल संसाधनों के बारे में कुछ भी पूछें।",
-        cityNotFound: "🚫 क्षमा करें, आपके द्वारा अनुरोधित शहर हमारे वर्तमान डेमो डेटा में उपलब्ध नहीं है। हम लगातार अपने डेटाबेस को अपडेट कर रहे हैं और जल्द ही और शहर जोड़ेंगे। कृपया उपलब्ध शहरों में से कोई एक आज़माएं: मुंबई, दिल्ली, बैंगलोर, हैदराबाद, चेन्नई, कोलकाता, पुणे, अहमदाबाद, जयपुर, रांची, लखनऊ, भोपाल, या इंदौर।",
-        mumbaiData: "📊 मुंबई के लिए भूजल आकलन:",
-        delhiData: "📊 दिल्ली क्षेत्र की वर्तमान स्थिति:",
-        bangaloreData: "📊 बैंगलोर के लिए भूजल डेटा:",
-        hyderabadData: "📊 हैदराबाद भूजल आकलन:",
-        chennaiData: "📊 चेन्नई जल संसाधन स्थिति:",
-        kolkataData: "📊 कोलकाता भूजल विश्लेषण:",
-        indoreData: "📊 इंदौर भूजल आकलन:"
+        welcome: "INGRES AI सहायक में आपका स्वागत है! मैं प्रमुख भारतीय शहरों के भूजल डेटा प्रदान कर सकता हूं। नीचे किसी शहर पर क्लिक करें या जल संसाधनों के बारे में कुछ भी पूछें।",
+        cityNotFound: "क्षमा करें, आपके द्वारा अनुरोधित शहर हमारे वर्तमान डेमो डेटा में उपलब्ध नहीं है। हम लगातार अपने डेटाबेस को अपडेट कर रहे हैं और जल्द ही और शहर जोड़ेंगे। कृपया उपलब्ध शहरों में से कोई एक आज़माएं: मुंबई, दिल्ली, बैंगलोर, हैदराबाद, चेन्नई, कोलकाता, पुणे, अहमदाबाद, जयपुर, रांची, लखनऊ, भोपाल, या इंदौर।",
+        mumbaiData: "मुंबई के लिए भूजल आकलन:",
+        delhiData: "दिल्ली क्षेत्र की वर्तमान स्थिति:",
+        bangaloreData: "बैंगलोर के लिए भूजल डेटा:",
+        hyderabadData: "हैदराबाद भूजल आकलन:",
+        chennaiData: "चेन्नई जल संसाधन स्थिति:",
+        kolkataData: "कोलकाता भूजल विश्लेषण:",
+        indoreData: "इंदौर भूजल आकलन:"
       },
       te: {
         welcome: "🌊 INGRES AI సహాయకుడికి స్వాగతం! నేను ప్రధాన భారతీయ నగరాల భూగర్భజల డేటాను అందించగలను. క్రింద ఏదైనా నగరాన్ని క్లిక్ చేయండి లేదా నీటి వనరుల గురించి ఏదైనా అడగండి.",
@@ -85,10 +90,10 @@ const ChatBot = () => {
     return translations[currentLanguage]?.[key] || translations.en[key] || key;
   };
 
-  const popularCities = [
-    'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 
-    'Pune', 'Ahmedabad', 'Jaipur', 'Ranchi', 'Lucknow', 'Bhopal', 'Indore'
-  ];
+  const popularCities = groundwaterData
+    .filter(item => item.type === 'city')
+    .slice(0, 12)
+    .map(item => item.name);
 
   const querySuggestions = [
     "Show me groundwater status for Mumbai",
@@ -283,55 +288,40 @@ const ChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([{
-        id: 1,
-        text: getLocalizedText('welcome'),
-        isUser: false,
-        timestamp: new Date(),
-      }]);
-    }
-  }, [currentLanguage]);
+  // Remove auto-welcome message - let users start fresh conversations
 
   const handleCityClick = (city: string) => {
-    // City mapping for better matching
-    const cityMap: { [key: string]: number } = {
-      'mumbai': 0, 'bombay': 0, 'मुंबई': 0,
-      'delhi': 1, 'new delhi': 1, 'दिल्ली': 1, 'नई दिल्ली': 1,
-      'bangalore': 2, 'bengaluru': 2, 'बैंगलोर': 2, 'बेंगलुरु': 2,
-      'hyderabad': 3, 'हैदराबाद': 3,
-      'chennai': 4, 'madras': 4, 'चेन्नई': 4, 'मद्रास': 4,
-      'kolkata': 5, 'calcutta': 5, 'कोलकाता': 5, 'कलकत्ता': 5,
-      'pune': 6, 'पुणे': 6,
-      'ahmedabad': 7, 'अहमदाबाद': 7,
-      'jaipur': 8, 'जयपुर': 8,
-      'ranchi': 9, 'रांची': 9,
-      'lucknow': 10, 'लखनऊ': 10,
-      'bhopal': 11, 'भोपाल': 11,
-      'indore': 12, 'इंदौर': 12
-    };
-
-    const cityIndex = cityMap[city.toLowerCase()];
-    const mockResponses = getMockResponses();
-    const cityResponse = cityIndex !== undefined ? mockResponses[cityIndex] : mockResponses.find(r => r.data.location === city);
+    // Find the city in our data structure
+    const cityData = getDataById(city.toLowerCase());
     
-    if (cityResponse) {
+    if (cityData) {
       const userMessage: Message = {
         id: Date.now(),
-        text: `Show me ${city} groundwater data`,
+        text: `Show me ${cityData.name} groundwater data`,
         isUser: true,
         timestamp: new Date(),
       };
       
       const botMessage: Message = {
         id: Date.now() + 1,
-        text: cityResponse.text,
+        text: `📊 Groundwater assessment for ${cityData.name}:`,
         isUser: false,
         timestamp: new Date(),
-        data: cityResponse.data,
-        chartData: cityResponse.chartData,
-        chartType: cityResponse.chartType,
+        data: {
+          location: cityData.name,
+          status: cityData.status.replace('-', ' ').toUpperCase(),
+          recharge: cityData.recharge,
+          extraction: cityData.extraction,
+          stage: `${cityData.stage}%`,
+          category: cityData.category,
+          historical: cityData.historical
+        },
+        chartData: cityData.historical.map(h => ({
+          name: h.year.toString(),
+          recharge: h.recharge,
+          extraction: h.extraction
+        })),
+        chartType: cityData.chartType,
       };
       
       setMessages(prev => [...prev, userMessage, botMessage]);
@@ -343,7 +333,7 @@ const ChatBot = () => {
 
     // Add to query history
     setQueryHistory(prev => [...prev.slice(-9), inputValue]);
-    
+
     const userMessage: Message = {
       id: Date.now(),
       text: inputValue,
@@ -379,14 +369,33 @@ const ChatBot = () => {
         'indore': 12, 'इंदौर': 12
       };
 
-      // Find matching city
+      // Find matching city or state in our data
       let cityFound = false;
-      for (const [cityName, index] of Object.entries(cityMap)) {
-        if (query.includes(cityName)) {
-          response = mockResponses[index] || mockResponses[0];
-          cityFound = true;
-          break;
-        }
+      const foundData = groundwaterData.find(item => 
+        item.name.toLowerCase().includes(query) || 
+        query.includes(item.name.toLowerCase())
+      );
+      
+      if (foundData) {
+        response = {
+          text: `📊 Groundwater assessment for ${foundData.name}:`,
+          data: {
+            location: foundData.name,
+            status: foundData.status.replace('-', ' ').toUpperCase(),
+            recharge: foundData.recharge,
+            extraction: foundData.extraction,
+            stage: `${foundData.stage}%`,
+            category: foundData.category,
+            historical: foundData.historical
+          },
+          chartData: foundData.historical.map(h => ({
+            name: h.year.toString(),
+            recharge: h.recharge,
+            extraction: h.extraction
+          })),
+          chartType: foundData.chartType
+        };
+        cityFound = true;
       }
       
       // Handle complex queries
@@ -434,7 +443,7 @@ const ChatBot = () => {
               chartType: null
             };
           } else {
-            response = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+        response = mockResponses[Math.floor(Math.random() * mockResponses.length)];
           }
         }
       }
@@ -587,10 +596,10 @@ const ChatBot = () => {
                 <div key={index} className="flex justify-between">
                   <span className="text-blue-600">{year.year}:</span>
                   <span className="font-medium text-blue-900">{year.stage}</span>
-                </div>
-              ))}
-            </div>
           </div>
+              ))}
+          </div>
+        </div>
         )}
       </Card>
     );
@@ -602,13 +611,13 @@ const ChatBot = () => {
         <Button
           onClick={() => {
             setIsOpen(true);
-            setIsFullScreen(true);
+            setIsFullScreen(false);
           }}
           className="h-12 md:h-16 px-3 md:px-6 bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent text-primary-foreground rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 animate-pulse hover:animate-none"
         >
           <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
           <div className="flex flex-col items-start">
-            <span className="text-xs md:text-sm font-semibold">💬 AI Assistant</span>
+            <span className="text-xs md:text-sm font-semibold">AI Assistant</span>
             <span className="text-xs opacity-90 hidden sm:block">Ask about water data</span>
           </div>
         </Button>
@@ -824,13 +833,13 @@ const ChatBot = () => {
             <div className="p-2 md:p-4 border-t border-cyan-200/30 bg-gradient-to-r from-blue-50/50 to-cyan-50/50">
               <div className="flex space-x-1 md:space-x-2">
                 <div className="flex-1 relative">
-                  <Input
-                    value={inputValue}
+                <Input
+                  value={inputValue}
                     onChange={(e) => {
                       setInputValue(e.target.value);
                       setShowSuggestions(e.target.value.length > 0);
                     }}
-                    onKeyPress={handleKeyPress}
+                  onKeyPress={handleKeyPress}
                     onFocus={() => setShowSuggestions(true)}
                     placeholder="Ask about groundwater data... (e.g., 'Show me Mumbai data')"
                     className="w-full border-cyan-300/50 focus:border-cyan-400 bg-white/80 rounded-full px-3 md:px-4 text-xs md:text-sm text-blue-900 placeholder-blue-500"
@@ -865,7 +874,7 @@ const ChatBot = () => {
           </>
         )}
       </Card>
-      </div>
+    </div>
     </>
   );
 };

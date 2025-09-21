@@ -16,17 +16,19 @@
     --card-overlay: 0 0% 100% / 0.9;
     --card-border: 0 0% 80% / 0.3;
 
-    /* Content overlay system */
-    --content-overlay: 0 0% 100% / 0.85;
-    --content-border: 0 0% 70% / 0.4;
+    /* Content overlay system - more transparent */
+    --content-overlay: 0 0% 100% / 0.75;
+    --content-border: 0 0% 70% / 0.3;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    /* Government blue theme */
-    --primary: 213 94% 68%;
+    /* INGRES blue and green theme */
+    --primary: 200 100% 36%; /* #0077b6 blue */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 213 94% 75%;
+    --primary-hover: 200 100% 45%;
+    --accent: 172 50% 40%; /* #2a9d8f green */
+    --accent-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
     --secondary-foreground: 0 0% 15%;

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import backgroundImage from "@/assets/background-landscape.jpg";
+import ChatBot from "@/components/ChatBot";
 
 const Index = () => {
   return (
@@ -123,17 +124,13 @@ const Index = () => {
           </div>
           
           <div className="flex items-center space-x-2">
-            <span className="text-sm">Developed by:</span>
-            <a href="http://vassarlabs.com/" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/assets/footer-logo.png" 
-                alt="Vassar Labs" 
-                className="h-8 w-auto hover:opacity-80 transition-opacity"
-              />
-            </a>
+            <span className="text-sm">Prototype by Team Syntax Error – Smart India Hackathon 2025</span>
           </div>
         </div>
       </footer>
+
+      {/* AI Chatbot */}
+      <ChatBot />
     </div>
   );
 };

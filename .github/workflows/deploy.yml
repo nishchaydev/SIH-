@@ -17,7 +17,6 @@ jobs:
       - name: List files
         run: |
           ls -la
-          ls -la SIH-INGRES/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,12 +25,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd SIH-INGRES
           npm install
 
       - name: Build
         run: |
-          cd SIH-INGRES
           npm run build
 
       - name: Deploy to GitHub Pages
@@ -39,4 +36,4 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./SIH-INGRES/dist
+          publish_dir: ./dist

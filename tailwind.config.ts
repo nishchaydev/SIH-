@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -46,6 +47,12 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          overlay: "hsl(var(--card-overlay))",
+          border: "hsl(var(--card-border))",
+        },
+        content: {
+          overlay: "hsl(var(--content-overlay))",
+          border: "hsl(var(--content-border))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

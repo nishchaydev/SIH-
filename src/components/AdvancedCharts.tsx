@@ -320,3 +320,4 @@ const AdvancedCharts: React.FC<AdvancedChartsProps> = ({ data, chartType, isFull
 };
 
 export default AdvancedCharts;
+

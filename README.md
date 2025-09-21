@@ -60,7 +60,37 @@ npm install
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+4. Open your browser and navigate to `http://localhost:8080`
+
+## 🌐 GitHub Pages Deployment
+
+### Automatic Deployment (Recommended)
+1. Push your code to the `main` branch
+2. GitHub Actions will automatically build and deploy to GitHub Pages
+3. Your site will be available at: `https://nishchaydev.github.io/SIH-INGRES/`
+
+### Manual Deployment
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy to GitHub Pages**
+   ```bash
+   npx gh-pages -d dist
+   ```
+
+3. **Or use the deployment script**
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+### GitHub Pages Setup
+1. Go to your repository settings
+2. Navigate to "Pages" section
+3. Set source to "GitHub Actions"
+4. The workflow will automatically deploy on every push to main branch
 
 ### Available Scripts
 

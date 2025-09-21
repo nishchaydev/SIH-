@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/SIH-/", // GitHub Pages base path
+  base: mode === 'production' ? "/SIH-INGRES/" : "/", // GitHub Pages base path for production
   server: {
     host: "::",
     port: 8080,
@@ -18,5 +18,6 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "dist",
     assetsDir: "assets",
+    sourcemap: false,
   },
 }));

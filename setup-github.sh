@@ -1,46 +1,55 @@
 #!/bin/bash
 
-# Setup script for GitHub Pages deployment
-echo "🔧 Setting up INGRES for GitHub Pages deployment..."
+echo "🚀 SIH-INGRES GitHub Pages Setup"
+echo "================================="
+echo
 
-# Check if we're in the right directory
-if [ ! -f "package.json" ]; then
-    echo "❌ Please run this script from the SIH-INGRES directory"
-    exit 1
+# Check if git is initialized
+if [ ! -d ".git" ]; then
+    echo "📝 Initializing git repository..."
+    git init
+    echo "✅ Git repository initialized!"
+    echo
+fi
+
+# Check if remote origin exists
+if ! git remote get-url origin > /dev/null 2>&1; then
+    echo "🔗 Please add your GitHub repository as origin:"
+    echo "   git remote add origin https://github.com/nishchaydev/SIH-INGRES.git"
+    echo
 fi
 
 # Install dependencies
 echo "📦 Installing dependencies..."
 npm install
+echo "✅ Dependencies installed!"
+echo
 
-# Build the project
-echo "🏗️ Building the project..."
+# Build project
+echo "🔨 Building project..."
 npm run build
+echo "✅ Project built successfully!"
+echo
 
-# Check if build was successful
-if [ $? -eq 0 ]; then
-    echo "✅ Build successful!"
-    echo ""
-    echo "🚀 Next steps:"
-    echo "1. Initialize git repository (if not already done):"
-    echo "   git init"
-    echo "   git add ."
-    echo "   git commit -m 'Initial commit - INGRES application'"
-    echo ""
-    echo "2. Add your GitHub repository as remote:"
-    echo "   git remote add origin https://github.com/nishchaydev/SIH.git"
-    echo ""
-    echo "3. Push to GitHub:"
-    echo "   git push -u origin main"
-    echo ""
-    echo "4. Enable GitHub Pages:"
-    echo "   - Go to https://github.com/nishchaydev/SIH/settings/pages"
-    echo "   - Select 'GitHub Actions' as source"
-    echo "   - Your app will be available at: https://nishchaydev.github.io/SIH/"
-    echo ""
-    echo "🎉 Your INGRES application is ready for deployment!"
-else
-    echo "❌ Build failed! Please check the errors above."
-    exit 1
-fi
+# Make deploy script executable
+chmod +x deploy.sh
+chmod +x scripts/deploy.js
+echo "✅ Deploy scripts made executable!"
+echo
 
+echo "🎉 SETUP COMPLETE!"
+echo "=================="
+echo
+echo "📋 Available commands:"
+echo "   npm run master    - Master deploy command (build + commit + push)"
+echo "   npm run deploy    - Same as master"
+echo "   npm run git       - Simple git deploy"
+echo "   npm run build     - Build only"
+echo "   npm run dev       - Development server"
+echo
+echo "🚀 To deploy your site:"
+echo "   npm run master"
+echo
+echo "🌐 Your site will be live at:"
+echo "   https://nishchaydev.github.io/SIH-INGRES/"
+echo

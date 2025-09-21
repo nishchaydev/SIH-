@@ -99,6 +99,24 @@ npm run dev
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
+### 🚀 Master Deploy Commands
+
+- `npm run master` - **Master deploy command** (build + commit + push to GitHub)
+- `npm run deploy` - Same as master command
+- `npm run git` - Simple git deploy (build + commit + push)
+- `npm run git:simple` - Basic git deploy without fancy output
+
+### Quick Deploy
+```bash
+npm run master
+```
+This single command will:
+1. Build your project
+2. Add all changes to git
+3. Commit with timestamp
+4. Push to GitHub
+5. Trigger GitHub Pages deployment
+
 ## Project Structure
 
 ```

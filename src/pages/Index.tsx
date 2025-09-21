@@ -21,7 +21,7 @@ const Index = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img 
-            src="./assets/logo1.png" 
+            src="/SIH-/assets/logo1.png" 
             alt="IN-GRES Logo" 
             className="h-12 md:h-16 w-auto"
           />
@@ -216,7 +216,7 @@ const Index = () => {
             <div className="flex items-center space-x-1 md:space-x-2">
               <span className="text-xs md:text-sm">Powered by:</span>
               <img 
-                src="./assets/logoIIT.png" 
+                src="/SIH-/assets/logoIIT.png" 
                 alt="IIT Hyderabad" 
                 className="h-5 md:h-8 w-auto"
               />

@@ -55,7 +55,7 @@ const ChatBot = () => {
     const translations: { [lang: string]: { [key: string]: string } } = {
       en: {
         welcome: "Welcome to INGRES AI Assistant! I can provide groundwater data for major Indian cities. Click on a city below or ask me anything about water resources.",
-        cityNotFound: "Sorry, the city you requested is not available in our current demo data. We are continuously updating our database and will add more cities soon. Please try with one of the available cities: Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Ranchi, Lucknow, Bhopal, or Indore.",
+        cityNotFound: "Sorry, the city you requested is not available in our current demo data. We are continuously updating our database and will add more cities soon. Please try with one of the available cities: Mumbai, Pune, Nagpur, Nashik, Bangalore, Chennai, Hyderabad, Delhi, Kolkata, Ahmedabad, Jaipur, or Lucknow.",
         mumbaiData: "Groundwater assessment for Mumbai:",
         delhiData: "Current status for Delhi region:",
         bangaloreData: "Groundwater data for Bangalore:",
@@ -291,8 +291,10 @@ const ChatBot = () => {
   // Remove auto-welcome message - let users start fresh conversations
 
   const handleCityClick = (city: string) => {
-    // Find the city in our data structure
-    const cityData = getDataById(city.toLowerCase());
+    // Find the city in our data structure by name (not ID)
+    const cityData = groundwaterData.find(item => 
+      item.name.toLowerCase() === city.toLowerCase() && item.type === 'city'
+    );
     
     if (cityData) {
       const userMessage: Message = {
@@ -325,6 +327,23 @@ const ChatBot = () => {
       };
       
       setMessages(prev => [...prev, userMessage, botMessage]);
+    } else {
+      // If city not found, show a helpful message
+      const userMessage: Message = {
+        id: Date.now(),
+        text: `Show me ${city} groundwater data`,
+        isUser: true,
+        timestamp: new Date(),
+      };
+      
+      const botMessage: Message = {
+        id: Date.now() + 1,
+        text: `Sorry, I don't have specific data for ${city}. Here are some available cities: Mumbai, Pune, Nagpur, Nashik, Bangalore, Chennai, Hyderabad, Delhi, Kolkata, Ahmedabad. Try asking about one of these cities!`,
+        isUser: false,
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, userMessage, botMessage]);
     }
   };
 
@@ -350,31 +369,36 @@ const ChatBot = () => {
     setTimeout(() => {
       const query = inputValue.toLowerCase();
       let response = null;
-      const mockResponses = getMockResponses();
       
-      // City mapping for better matching (including Hindi names)
-      const cityMap: { [key: string]: number } = {
-        'mumbai': 0, 'bombay': 0, 'मुंबई': 0,
-        'delhi': 1, 'new delhi': 1, 'दिल्ली': 1, 'नई दिल्ली': 1,
-        'bangalore': 2, 'bengaluru': 2, 'बैंगलोर': 2, 'बेंगलुरु': 2,
-        'hyderabad': 3, 'हैदराबाद': 3,
-        'chennai': 4, 'madras': 4, 'चेन्नई': 4, 'मद्रास': 4,
-        'kolkata': 5, 'calcutta': 5, 'कोलकाता': 5, 'कलकत्ता': 5,
-        'pune': 6, 'पुणे': 6,
-        'ahmedabad': 7, 'अहमदाबाद': 7,
-        'jaipur': 8, 'जयपुर': 8,
-        'ranchi': 9, 'रांची': 9,
-        'lucknow': 10, 'लखनऊ': 10,
-        'bhopal': 11, 'भोपाल': 11,
-        'indore': 12, 'इंदौर': 12
+      // Enhanced city matching with multiple language support
+      const cityAliases: { [key: string]: string } = {
+        'mumbai': 'mumbai', 'bombay': 'mumbai', 'मुंबई': 'mumbai',
+        'delhi': 'delhi', 'new delhi': 'delhi', 'दिल्ली': 'delhi', 'नई दिल्ली': 'delhi',
+        'bangalore': 'bangalore', 'bengaluru': 'bangalore', 'बैंगलोर': 'bangalore', 'बेंगलुरु': 'bangalore',
+        'hyderabad': 'hyderabad', 'हैदराबाद': 'hyderabad',
+        'chennai': 'chennai', 'madras': 'chennai', 'चेन्नई': 'chennai', 'मद्रास': 'chennai',
+        'kolkata': 'kolkata', 'calcutta': 'kolkata', 'कोलकाता': 'kolkata', 'कलकत्ता': 'kolkata',
+        'pune': 'pune', 'पुणे': 'pune',
+        'ahmedabad': 'ahmedabad', 'अहमदाबाद': 'ahmedabad',
+        'jaipur': 'jaipur', 'जयपुर': 'jaipur',
+        'nagpur': 'nagpur', 'नागपुर': 'nagpur',
+        'nashik': 'nashik', 'नासिक': 'nashik'
       };
 
       // Find matching city or state in our data
       let cityFound = false;
-      const foundData = groundwaterData.find(item => 
+      let foundData = groundwaterData.find(item => 
         item.name.toLowerCase().includes(query) || 
         query.includes(item.name.toLowerCase())
       );
+      
+      // If not found, try with city aliases
+      if (!foundData) {
+        const normalizedQuery = cityAliases[query] || query;
+        foundData = groundwaterData.find(item => 
+          item.name.toLowerCase() === normalizedQuery.toLowerCase()
+        );
+      }
       
       if (foundData) {
         response = {
@@ -443,7 +467,26 @@ const ChatBot = () => {
               chartType: null
             };
           } else {
-        response = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+            // Fallback to a random response if no specific query is matched
+            const randomData = groundwaterData[Math.floor(Math.random() * groundwaterData.length)];
+            response = {
+              text: `📊 Here's some general groundwater information for ${randomData.name}:`,
+              data: {
+                location: randomData.name,
+                status: randomData.status.replace('-', ' ').toUpperCase(),
+                recharge: randomData.recharge,
+                extraction: randomData.extraction,
+                stage: `${randomData.stage}%`,
+                category: randomData.category,
+                historical: randomData.historical
+              },
+              chartData: randomData.historical.map(h => ({
+                name: h.year.toString(),
+                recharge: h.recharge,
+                extraction: h.extraction
+              })),
+              chartType: randomData.chartType
+            };
           }
         }
       }

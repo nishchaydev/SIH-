@@ -14,10 +14,10 @@ const Index = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Water-themed overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-cyan-800/50 to-teal-900/40"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-cyan-800/70 to-teal-900/60"></div>
       
       {/* Water ripple effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/3 to-transparent animate-pulse"></div>
       {/* Header Section */}
       <header className="flex items-center justify-between p-4 md:p-6 relative z-10">
         {/* Logo */}
@@ -41,17 +41,17 @@ const Index = () => {
 
       {/* Main Title */}
       <div className="text-center mt-4 md:mt-12 mb-6 md:mb-16 px-4 md:px-6">
-        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-2xl leading-tight">
+        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-2xl leading-tight bg-black/20 px-4 py-2 rounded-lg">
           INDIA-Groundwater Resource Estimation System
         </h1>
-        <p className="text-sm md:text-lg text-white drop-shadow-lg mt-2 md:mt-4 font-medium">
+        <p className="text-sm md:text-lg text-white drop-shadow-lg mt-2 md:mt-4 font-semibold bg-black/10 px-3 py-1 rounded-lg">
           AI-Powered Virtual Assistant for Groundwater Data Analysis
         </p>
       </div>
 
       {/* Main Content Card */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pb-20 md:pb-24">
-        <Card className="bg-white/95 border-content-border backdrop-blur-sm shadow-2xl">
+        <Card className="bg-white/98 border-content-border backdrop-blur-sm shadow-2xl">
           <div className="p-4 md:p-10">
             {/* GEC Overview Header */}
             <div className="text-center mb-6 md:mb-10">
@@ -74,14 +74,14 @@ const Index = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border border-cyan-200/50">
                     <h3 className="text-lg font-semibold text-blue-900 mb-3">What is GEC?</h3>
-                    <p className="text-sm text-blue-800 leading-relaxed">
+                    <p className="text-sm text-gray-800 leading-relaxed font-medium">
                       Ground Water Resource Estimation Committee (GEC-2015) methodology for assessment of dynamic groundwater resources across India.
                     </p>
                   </Card>
                   
                   <Card className="p-6 bg-gradient-to-br from-green-50 to-teal-50 border border-teal-200/50">
                     <h3 className="text-lg font-semibold text-green-900 mb-3">Assessment Categories</h3>
-                    <div className="space-y-2 text-sm text-green-800">
+                    <div className="space-y-2 text-sm text-gray-800 font-medium">
                       <div className="flex justify-between"><span>Safe:</span><span>&lt; 70%</span></div>
                       <div className="flex justify-between"><span>Semi-Critical:</span><span>70-90%</span></div>
                       <div className="flex justify-between"><span>Critical:</span><span>90-100%</span></div>
@@ -91,7 +91,7 @@ const Index = () => {
                   
                   <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200/50">
                     <h3 className="text-lg font-semibold text-purple-900 mb-3">AI Assistant</h3>
-                    <p className="text-sm text-purple-800 leading-relaxed">
+                    <p className="text-sm text-gray-800 leading-relaxed font-medium">
                       Ask questions about groundwater data in multiple languages and get instant insights with interactive charts.
                     </p>
                   </Card>
